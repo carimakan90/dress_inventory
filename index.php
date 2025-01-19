@@ -98,23 +98,13 @@
 								  <label for="itemDetailsTotalStock">Total Stock</label>
 								  <input type="text" class="form-control" name="itemDetailsTotalStock" id="itemDetailsTotalStock" readonly>
 								</div>
-							  </div>
-							  <div class="form-row">
-								<div class="form-group col-md-6">
-								  <label for="existingCustomer">Existing Customer</label>
-								  <select id="existingCustomer" name="existingCustomer" class="form-control chosenSelect">
-									<?php
-									  // Fetch customer data from the database
-									  require('model/customer/getCustomerList.php');
-									  foreach($customerList as $customer) {
-										echo '<option value="' . $customer['customerID'] . '">' . $customer['fullName'] . '</option>';
-									  }
-									?>
-								  </select>
+								<div class="form-group col-md-3">
+									<div id="imageContainer"></div>
 								</div>
 							  </div>
-							  <button type="button" id="addItemButton" class="btn btn-success">Add Item</button>
+							  <button type="button" id="addItem" class="btn btn-success">Add Item</button>
 							  <button type="button" id="updateItemDetailsButton" class="btn btn-primary">Update</button>
+							  <button type="button" id="deleteItem" class="btn btn-danger">Delete</button>
 							  <button type="reset" class="btn" id="itemClear">Clear</button>
 							</form>
 						</div>
