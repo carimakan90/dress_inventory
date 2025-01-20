@@ -102,6 +102,20 @@
 									<div id="imageContainer"></div>
 								</div>
 							  </div>
+							  <div class="form-row">
+								<div class="form-group col-md-6">
+								<label for="itemDetailsVendor">Vendor</label>
+								<select id="itemDetailsVendor" name="itemDetailsVendor" class="form-control chosenSelect">
+									<?php
+									// Fetch vendor data from the database
+									require('model/vendor/getVendorList.php');
+									foreach($vendorList as $vendor) {
+										echo '<option value="' . $vendor['vendorID'] . '">' . $vendor['vendorName'] . '</option>';
+									}
+									?>
+								</select>
+								</div>
+							</div>
 							  <button type="button" id="addItem" class="btn btn-success">Add Item</button>
 							  <button type="button" id="updateItemDetailsButton" class="btn btn-primary">Update</button>
 							  <button type="button" id="deleteItem" class="btn btn-danger">Delete</button>
