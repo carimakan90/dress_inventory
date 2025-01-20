@@ -108,7 +108,7 @@
 								<select id="itemDetailsVendor" name="itemDetailsVendor" class="form-control chosenSelect">
 									<?php
 									// Fetch vendor data from the database
-									require('model/vendor/getVendorList.php');
+									require('model/vendor/getVendorName.php');
 									foreach($vendorList as $vendor) {
 										echo '<option value="' . $vendor['vendorID'] . '">' . $vendor['vendorName'] . '</option>';
 									}
