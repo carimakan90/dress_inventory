@@ -15,9 +15,10 @@
 		$unitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
 		$status = htmlentities($_POST['itemDetailsStatus']);
 		$description = htmlentities($_POST['itemDetailsDescription']);
+		$vendorName = htmlentities($_POST['itemDetailsVendorName']); // Retrieve vendor name
 		
 		// Check if mandatory fields are not empty
-		if(!empty($itemNumber) && !empty($itemName) && isset($quantity) && isset($unitPrice)){
+		if(!empty($itemNumber) && !empty($itemName) && isset($quantity) && isset($unitPrice) && !empty($vendorName)){
 			
 			// Sanitize item number
 			$itemNumber = filter_var($itemNumber, FILTER_SANITIZE_STRING);
@@ -49,6 +50,13 @@
 				}
 			}
 			
+			// Validate vendor name
+			$vendorName = filter_var($vendorName, FILTER_SANITIZE_STRING);
+			if($vendorName == ''){
+				echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please select a valid vendor</div>';
+				exit();
+			}
+			
 			// Create image folder for uploading images
 			$itemImageFolder = $baseImageFolder . $itemNumber;
 			if(is_dir($itemImageFolder)){
@@ -70,9 +78,9 @@
 			} else {
 				// Item does not exist, therefore, you can add it to DB as a new item
 				// Start the insert process
-				$insertItemSql = 'INSERT INTO item(itemNumber, itemName, discount, stock, unitPrice, status, description) VALUES(:itemNumber, :itemName, :discount, :stock, :unitPrice, :status, :description)';
+				$insertItemSql = 'INSERT INTO item(itemNumber, itemName, discount, stock, unitPrice, status, description, vendorName) VALUES(:itemNumber, :itemName, :discount, :stock, :unitPrice, :status, :description, :vendorName)';
 				$insertItemStatement = $conn->prepare($insertItemSql);
-				$insertItemStatement->execute(['itemNumber' => $itemNumber, 'itemName' => $itemName, 'discount' => $discount, 'stock' => $quantity, 'unitPrice' => $unitPrice, 'status' => $status, 'description' => $description]);
+				$insertItemStatement->execute(['itemNumber' => $itemNumber, 'itemName' => $itemName, 'discount' => $discount, 'stock' => $quantity, 'unitPrice' => $unitPrice, 'status' => $status, 'description' => $description, 'vendorName' => $vendorName]);
 				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Item added to database.</div>';
 				exit();
 			}

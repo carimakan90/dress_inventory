@@ -978,6 +978,7 @@ function addItem() {
 	var itemDetailsUnitPrice = $('#itemDetailsUnitPrice').val();
 	var itemDetailsStatus = $('#itemDetailsStatus').val();
 	var itemDetailsDescription = $('#itemDetailsDescription').val();
+	var itemDetailsVendorName = $('#itemDetailsVendorName').val();
 	
 	$.ajax({
 		url: 'model/item/insertItem.php',
@@ -990,6 +991,7 @@ function addItem() {
 			itemDetailsUnitPrice:itemDetailsUnitPrice,
 			itemDetailsStatus:itemDetailsStatus,
 			itemDetailsDescription:itemDetailsDescription,
+			itemDetailsVendorName:itemDetailsVendorName,
 		},
 		success: function(data){
 			$('#itemDetailsMessage').fadeIn();
@@ -1460,6 +1462,7 @@ function updateItem() {
 	var itemDetailsUnitPrice = $('#itemDetailsUnitPrice').val();
 	var itemDetailsStatus = $('#itemDetailsStatus').val();
 	var itemDetailsDescription = $('#itemDetailsDescription').val();
+	var itemDetailsVendorName = $('#itemDetailsVendorName').val();
 	
 	$.ajax({
 		url: 'model/item/updateItemDetails.php',
@@ -1472,6 +1475,7 @@ function updateItem() {
 			itemDetailsUnitPrice:itemDetailsUnitPrice,
 			itemDetailsStatus:itemDetailsStatus,
 			itemDetailsDescription:itemDetailsDescription,
+			itemDetailsVendorName:itemDetailsVendorName,
 		},
 		success: function(data){
 			var result = $.parseJSON(data);

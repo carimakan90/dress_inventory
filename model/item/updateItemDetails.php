@@ -3,21 +3,22 @@
 	require_once('../../inc/config/db.php');
 	
 	// Check if the POST query is received
-	if(isset($_POST['itemNumber'])) {
+	if(isset($_POST['itemDetailsItemNumber'])) {
 		
-		$itemNumber = htmlentities($_POST['itemNumber']);
+		$itemNumber = htmlentities($_POST['itemDetailsItemNumber']);
 		$itemName = htmlentities($_POST['itemDetailsItemName']);
 		$discount = htmlentities($_POST['itemDetailsDiscount']);
 		$itemDetailsQuantity = htmlentities($_POST['itemDetailsQuantity']);
 		$itemDetailsUnitPrice = htmlentities($_POST['itemDetailsUnitPrice']);
 		$status = htmlentities($_POST['itemDetailsStatus']);
 		$description = htmlentities($_POST['itemDetailsDescription']);
+		$vendorName = htmlentities($_POST['itemDetailsVendorName']); // Retrieve vendor name
 		
 		$initialStock = 0;
 		$newStock = 0;
 		
 		// Check if mandatory fields are not empty
-		if(!empty($itemNumber) && !empty($itemName) && isset($itemDetailsQuantity) && isset($itemDetailsUnitPrice)){
+		if(!empty($itemNumber) && !empty($itemName) && isset($itemDetailsQuantity) && isset($itemDetailsUnitPrice) && !empty($vendorName)){
 			
 			// Sanitize item number
 			$itemNumber = filter_var($itemNumber, FILTER_SANITIZE_STRING);
@@ -55,6 +56,15 @@
 				}
 			}
 			
+			// Validate vendor name
+			$vendorName = filter_var($vendorName, FILTER_SANITIZE_STRING);
+			if($vendorName == ''){
+				$errorAlert = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Please select a valid vendor</div>';
+				$data = ['alertMessage' => $errorAlert];
+				echo json_encode($data);
+				exit();
+			}
+			
 			// Calculate the stock
 			$stockSelectSql = 'SELECT stock FROM item WHERE itemNumber = :itemNumber';
 			$stockSelectStatement = $conn->prepare($stockSelectSql);
@@ -72,9 +82,9 @@
 			}
 		
 			// Construct the UPDATE query
-			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, discount = :discount, stock = :stock, unitPrice = :unitPrice, status = :status, description = :description WHERE itemNumber = :itemNumber';
+			$updateItemDetailsSql = 'UPDATE item SET itemName = :itemName, discount = :discount, stock = :stock, unitPrice = :unitPrice, status = :status, description = :description, vendorName = :vendorName WHERE itemNumber = :itemNumber';
 			$updateItemDetailsStatement = $conn->prepare($updateItemDetailsSql);
-			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'discount' => $discount, 'stock' => $newStock, 'unitPrice' => $itemDetailsUnitPrice, 'status' => $status, 'description' => $description, 'itemNumber' => $itemNumber]);
+			$updateItemDetailsStatement->execute(['itemName' => $itemName, 'discount' => $discount, 'stock' => $newStock, 'unitPrice' => $itemDetailsUnitPrice, 'status' => $status, 'description' => $description, 'vendorName' => $vendorName, 'itemNumber' => $itemNumber]);
 			
 			// UPDATE item name in sale table
 			$updateItemInSaleTableSql = 'UPDATE sale SET itemName = :itemName WHERE itemNumber = :itemNumber';
