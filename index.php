@@ -104,14 +104,10 @@
 							  </div>
 							  <div class="form-row">
 								<div class="form-group col-md-6">
-								<label for="itemDetailsVendor">Vendor</label>
-								<select id="itemDetailsVendor" name="itemDetailsVendor" class="form-control chosenSelect">
-									<?php
-									// Fetch vendor data from the database
-									require('model/vendor/getVendorName.php');
-									foreach($vendorList as $vendor) {
-										echo '<option value="' . $vendor['vendorID'] . '">' . $vendor['vendorName'] . '</option>';
-									}
+								<label for="itemDetailsVendorName">Vendor Name<span class="requiredIcon">*</span></label>
+								<select id="itemDetailsVendorName" name="itemDetailsVendorName" class="form-control chosenSelect">
+									<?php 
+										require('model/vendor/getVendorNames.php');
 									?>
 								</select>
 								</div>
