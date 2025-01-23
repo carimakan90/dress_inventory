@@ -9,7 +9,7 @@ $itemDetailsSearchSql = 'SELECT item.*, vendor.vendorName FROM item LEFT JOIN ve
 $itemDetailsSearchStatement = $conn->prepare($itemDetailsSearchSql);
 $itemDetailsSearchStatement->execute();
 
-$output = '<table id="itemReportsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+$output = '<table id="itemDetailsTable" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>Product ID</th>
