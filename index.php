@@ -103,15 +103,15 @@
 								</div>
 							  </div>
 							  <div class="form-row">
-								<div class="form-group col-md-6">
-								<label for="itemDetailsVendorName">Vendor Name<span class="requiredIcon">*</span></label>
-								<select id="itemDetailsVendorName" name="itemDetailsVendorName" class="form-control chosenSelect">
-									<?php 
-										require('model/vendor/getVendorNames.php');
-									?>
-								</select>
+									<div class="form-group col-md-6">
+										<label for="itemDetailsVendorName">Vendor Name<span class="requiredIcon">*</span></label>
+										<select id="itemDetailsVendorName" name="itemDetailsVendorName" class="form-control chosenSelect">
+											<?php 
+												require('model/vendor/getVendorNames.php');
+											?>
+										</select>
+									</div>
 								</div>
-							</div>
 							  <button type="button" id="addItem" class="btn btn-success">Add Item</button>
 							  <button type="button" id="updateItemDetailsButton" class="btn btn-primary">Update</button>
 							  <button type="button" id="deleteItem" class="btn btn-danger">Delete</button>

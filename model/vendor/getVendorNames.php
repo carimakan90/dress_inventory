@@ -1,12 +1,16 @@
 <?php
-	$vendorNamesSql = 'SELECT * FROM vendor';
-	$vendorNamesStatement = $conn->prepare($vendorNamesSql);
-	$vendorNamesStatement->execute();
-	
-	if($vendorNamesStatement->rowCount() > 0) {
-		while($row = $vendorNamesStatement->fetch(PDO::FETCH_ASSOC)) {
-			echo '<option value="' .$row['fullName'] . '">' . $row['fullName'] . '</option>';
-		}
-	}
-	$vendorNamesStatement->closeCursor();
+require_once('../../inc/config/db.php');
+
+try {
+    $sql = 'SELECT vendorID, vendorName FROM vendor';
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+    $vendorList = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($vendorList as $vendor) {
+        echo '<option value="' . $vendor['vendorID'] . '">' . $vendor['vendorName'] . '</option>';
+    }
+} catch (PDOException $e) {
+    echo 'Database error: ' . $e->getMessage();
+}
 ?>
