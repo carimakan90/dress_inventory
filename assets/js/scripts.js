@@ -440,7 +440,19 @@ $(document).ready(function(){
 	$('#showSaleReport').on('click', function(){
 		filteredSaleReportTableCreator('saleReportStartDate', 'saleReportEndDate', saleFilteredReportCreatorFile, 'saleReportsTableDiv', 'saleFilteredReportsTable');
 	});
-	
+
+    $('#v-pills-reports-tab').on('click', function() {
+        $.ajax({
+            url: 'model/item/itemReportsSearchTableCreator.php',
+            method: 'GET',
+            success: function(data) {
+                $('#itemReportsTableDiv').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading item reports:', error);
+            }
+        });
+    });
 });
 
 
