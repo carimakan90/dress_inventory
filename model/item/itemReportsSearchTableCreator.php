@@ -2,8 +2,7 @@
 	require_once('../../inc/config/constants.php');
 	require_once('../../inc/config/db.php');
 	
-	// Modify the SQL query to join the item table with the vendor table
-	$itemDetailsSearchSql = 'SELECT item.*, vendor.vendorName FROM item LEFT JOIN vendor ON item.vendorName = vendor.vendorID';
+	$itemDetailsSearchSql = 'SELECT * FROM item';
 	$itemDetailsSearchStatement = $conn->prepare($itemDetailsSearchSql);
 	$itemDetailsSearchStatement->execute();
 
@@ -18,7 +17,6 @@
 						<th>Unit Price</th>
 						<th>Status</th>
 						<th>Description</th>
-						<th>Vendor Name</th>
 					</tr>
 				</thead>
 				<tbody>';
@@ -28,13 +26,13 @@
 		$output .= '<tr>' .
 						'<td>' . $row['productID'] . '</td>' .
 						'<td>' . $row['itemNumber'] . '</td>' .
+						//'<td>' . $row['itemName'] . '</td>' .
 						'<td><a href="#" class="itemDetailsHover" data-toggle="popover" id="' . $row['productID'] . '">' . $row['itemName'] . '</a></td>' .
 						'<td>' . $row['discount'] . '</td>' .
 						'<td>' . $row['stock'] . '</td>' .
 						'<td>' . $row['unitPrice'] . '</td>' .
 						'<td>' . $row['status'] . '</td>' .
 						'<td>' . $row['description'] . '</td>' .
-						'<td>' . $row['vendorName'] . '</td>' .
 					'</tr>';
 	}
 	
@@ -51,7 +49,6 @@
 							<th>Unit Price</th>
 							<th>Status</th>
 							<th>Description</th>
-							<th>Vendor Name</th>
 						</tr>
 					</tfoot>
 				</table>';
